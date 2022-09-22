@@ -19,7 +19,7 @@ namespace Infrastructure.Mapping
             CreateMap<Flight, FlightVM>().ReverseMap();
             CreateMap<Booking, BookingVM>().ReverseMap();
             CreateMap<Passenger, PassengerVM>().ReverseMap();
-            CreateMap<FlightSchedule, FlightScheduleVM>().ReverseMap();
+            CreateMap<FlightSchedule, FlightScheduleVM>().ForMember(d=>d.FlightId, opt=> opt.MapFrom(src=>src.Flight.Id)).ReverseMap();
         }
     }
 }
