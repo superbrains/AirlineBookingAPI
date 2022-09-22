@@ -26,9 +26,7 @@ namespace Infrastructure.Services
         }
 
         public async Task<ApiResponse> AddDestination(FlightDestinationVM request)
-        {
-                   
-
+        {              
             var route = _mapper.Map<FlightDestinations>(request);
 
             var result = await _unitOfWork.FlightDestination.Add(route);

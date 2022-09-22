@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Infrastructure.Interfaces
 {
     public interface IFlightService
     {
-        Task<FlightVM> AddFlight(FlightVM request);
-        Task<FlightVM> UpdateFlight(FlightVM request);
-        Task<FlightVM> RemoveFlight(int Id);
-        Task<FlightVM> GetFlight(int Id);
-        Task<FlightVM> SetFlightAvailability(int flightId, bool availability);
+        Task<ApiResponse> AddFlight(FlightVM request);
+        Task<ApiResponse> UpdateFlight(FlightVM request);
+        Task<ApiResponse> RemoveFlight(int Id);
+        Task<ApiResponse> GetFlight(int Id);
+        Task<ApiResponse> SetFlightAvailability(int flightId, bool availability);
     }
 }

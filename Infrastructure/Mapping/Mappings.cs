@@ -15,6 +15,11 @@ namespace Infrastructure.Mapping
         {
             CreateMap<Users, UserVM>().ReverseMap();
             CreateMap<Customer, CustomerVM>().ReverseMap();
+            CreateMap<FlightDestinations, FlightDestinationVM>().ReverseMap();
+            CreateMap<Flight, FlightVM>().ReverseMap();
+            CreateMap<Booking, BookingVM>().ReverseMap();
+            CreateMap<Passenger, PassengerVM>().ReverseMap();
+            CreateMap<FlightSchedule, FlightScheduleVM>().ReverseMap();
         }
     }
 }
