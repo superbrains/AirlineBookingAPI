@@ -2,6 +2,7 @@
 using AutoWrapper.Wrappers;
 using Common.DTOs.Request;
 using Common.Enums;
+using Common.Extensions;
 using Data.Models;
 using Data.Transactions;
 using Infrastructure.Interfaces;
@@ -43,7 +44,7 @@ namespace Infrastructure.Services
             }
             else
             {
-                throw new ApiException(StatusCode.GeneralError);
+                throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.GeneralError));
             }           
         }
 
@@ -57,7 +58,7 @@ namespace Infrastructure.Services
                  return new ApiResponse(user);
             }
 
-            throw new ApiException(StatusCode.NotFound);
+          throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.NotFound));
         }
 
         public async Task<ApiResponse> ValidateUser(string email, string pass)
@@ -66,7 +67,7 @@ namespace Infrastructure.Services
             var validLogin = await _unitOfWork.Users.FindOne(x => x.EmailAddress == email);
             if (validLogin == null)
             {
-                throw new ApiException(StatusCode.NotFound);
+                throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.NotFound));
             }
             else
             {

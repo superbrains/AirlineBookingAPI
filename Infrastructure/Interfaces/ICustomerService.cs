@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Infrastructure.Interfaces
 {
     public interface ICustomerService
     {
-        Task<CustomerVM> CreateCustomer(CustomerVM request);
-        Task<CustomerVM> GetCustomerInfo(int Id);
+        Task<ApiResponse> CreateCustomer(CustomerVM request);
+        Task<ApiResponse> GetCustomerInfo(string email);
     }
 }
