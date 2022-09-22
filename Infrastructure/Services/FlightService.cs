@@ -92,7 +92,7 @@ namespace Infrastructure.Services
 
                 return new ApiResponse("Flight Information Updated");
             }
-            throw new NotImplementedException();
+            throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.GeneralError));
         }
     }
 }
