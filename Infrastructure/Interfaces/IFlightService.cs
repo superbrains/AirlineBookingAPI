@@ -11,6 +11,7 @@ namespace Infrastructure.Interfaces
     public interface IFlightService
     {
         Task<ApiResponse> AddFlight(FlightVM request);
+        Task<ApiResponse> AddFlightSeats(FlightSeatVM request);      
         Task<ApiResponse> UpdateFlight(FlightVM request);
         Task<ApiResponse> RemoveFlight(int Id);
         Task<ApiResponse> GetFlight(int Id);

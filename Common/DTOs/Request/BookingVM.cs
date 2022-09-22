@@ -13,11 +13,9 @@ namespace Common.DTOs.Request
         public int NumberOfAdults { get; set; }
         public int NumberOfChildren { get; set; }
         public decimal TotalAmount { get; set; }
-        public decimal AmountPaid { get; set; }
-        public bool IsValid { get; set; }
-        public bool IsCheckedIn { get; set; } = false;
+        public decimal AmountPaid { get; set; }       
         public bool IsRounTrip { get; set; }
         public DateTime ReturnDate { get; set; }
-        public List<string> SeatNumbers { get; set; }
+        public List<string> Seats { get; set; }
     }
 }

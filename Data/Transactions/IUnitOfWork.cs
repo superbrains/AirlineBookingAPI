@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Repositories.TicketRepo;
+using Data.Repositories.FlightSeatRepo;
 
 namespace Data.Transactions
 {
@@ -22,6 +24,8 @@ namespace Data.Transactions
         IFlightDestinationRepository FlightDestination { get; }
         IFlightScheduleRepository FlightSchedule { get; }
         IPassengerRepository Passenger { get; }
+        ITicketRepository Ticket { get; }
+        IFlightSeatRepository FlightSeat { get; }
         Task CompleteAsync();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace Infrastructure.Interfaces
 {
     public interface IBookingService
     {
-        Task<string> CreateBooking(BookingVM request);
-        Task<TicketVM> GenerateTicket(string bookingReference);
-        Task<bool> CancelBooking(string bookingReference);
-        Task<List<TicketVM>> ViewTickets(int CustomerId);
+        Task<ApiResponse> CreateBooking(BookingVM request);
+        Task<ApiResponse> CancelBooking(string bookingref);
+        Task<ApiResponse> GetAvailableFlightSeats(int flightId);
+        Task<ApiResponse> ViewTickets(int CustomerId);
+      
     }
 }

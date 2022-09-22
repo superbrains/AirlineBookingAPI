@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.Repositories.TicketRepo;
+using Data.Repositories.FlightSeatRepo;
 
 namespace Data.Transactions
 {
@@ -26,6 +28,8 @@ namespace Data.Transactions
         public IFlightDestinationRepository FlightDestination { get; private set; }
         public IFlightScheduleRepository FlightSchedule { get; private set; }
         public IPassengerRepository Passenger { get; private set; }
+        public ITicketRepository Ticket { get; private set; }
+        public IFlightSeatRepository FlightSeat { get; private set; }
         public UnitOfWork(Data.DBContext.DBContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
@@ -38,6 +42,8 @@ namespace Data.Transactions
             Flight = new FlightRepository(context, _logger);
             FlightDestination = new FlightDestinationRepository(context, _logger);
             FlightSchedule = new FlightScheduleRepository(context, _logger);
+            Ticket = new TicketRepository(context, _logger);
+            FlightSeat = new FlightSeatRepository(context, _logger);
         }
 
         public async Task CompleteAsync()

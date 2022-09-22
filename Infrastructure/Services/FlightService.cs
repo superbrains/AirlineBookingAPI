@@ -41,6 +41,23 @@ namespace Infrastructure.Services
             }
         }
 
+        public async Task<ApiResponse> AddFlightSeats(FlightSeatVM request)
+        {
+            var flightSeat = _mapper.Map<FlightSeat>(request);
+
+            var result = await _unitOfWork.FlightSeat.Add(flightSeat);
+            await _unitOfWork.CompleteAsync();
+
+            if (result)
+            {
+                return new ApiResponse(request);
+            }
+            else
+            {
+                throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.GeneralError));
+            }
+        }
+
         public async Task<ApiResponse> GetFlight(int Id)
         {
             var flight = await _unitOfWork.Flight.GetById(Id);

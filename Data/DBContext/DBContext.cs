@@ -19,6 +19,8 @@ namespace Data.DBContext
         public virtual DbSet<FlightSchedule> FlightSchedules { get; set; }
         public virtual DbSet<Passenger> Passengers { get; set; }
         public virtual DbSet<Seats> Seats { get; set; }
+        public virtual DbSet<FlightSeat> FlightSeats { get; set; }
+        public virtual DbSet<Ticket> Tickets { get; set; }
         public DBContext(DbContextOptions<DBContext> options)
             : base(options)
         {
