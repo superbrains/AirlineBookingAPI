@@ -6,6 +6,7 @@ using Data.Transactions;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var cn = builder.Configuration.GetConnectionString("LocalConnection");
@@ -17,7 +18,20 @@ builder.Services.AddControllers(options =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => {
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "this is V1"
+    });
+    c.SwaggerDoc("v2", new OpenApiInfo
+    {
+        Version = "v2",
+        Title = "this is V2"
+    });
+
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+});
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

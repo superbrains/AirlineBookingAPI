@@ -22,16 +22,7 @@ namespace AirlineBookingAPI.Controllers
             _flightScheduleService = flightScheduleService;
         }
 
-        [HttpPost(Name = "AddFlight")]
-        [Route("AddFlight")]
-        public async Task<ApiResponse> AddFlight(FlightVM request)
-        {
-            //Validate Model
-            var result = await _flightService.AddFlight(request);
-
-            return result;
-        }
-
+       
         [HttpPost(Name = "AddFlightSeats")]
         [Route("AddFlightSeats")]
         public async Task<ApiResponse> AddFlightSeats(FlightSeatVM request)
