@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(Data.DBContext.DBContext))]
-    [Migration("20220921080645_DB")]
-    partial class DB
+    [Migration("20220922153817_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,7 +138,7 @@ namespace Data.Migrations
                     b.ToTable("Flights");
                 });
 
-            modelBuilder.Entity("Data.Models.FlightRoutes", b =>
+            modelBuilder.Entity("Data.Models.FlightDestinations", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,12 +149,12 @@ namespace Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Routes")
+                    b.Property<string>("Route")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("FlightRoutes");
+                    b.ToTable("FlightDestinations");
                 });
 
             modelBuilder.Entity("Data.Models.FlightSchedule", b =>

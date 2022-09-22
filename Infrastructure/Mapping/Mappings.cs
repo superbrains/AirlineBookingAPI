@@ -14,7 +14,7 @@ namespace Infrastructure.Mapping
         public Mappings()
         {
             CreateMap<Users, UserVM>().ReverseMap();
-           
+            CreateMap<Customer, CustomerVM>().ReverseMap();
         }
     }
 }

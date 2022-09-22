@@ -147,7 +147,7 @@ namespace Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Routes")
+                    b.Property<string>("Route")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

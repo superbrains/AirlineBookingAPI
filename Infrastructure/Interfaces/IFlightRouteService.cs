@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IFlightDestinationService
     {
-        Task<FlightDestinationVM> AddDestination(FlightDestinationVM request);
-        Task<FlightDestinationVM> RemoveDestination(int Id);
-        Task<List<FlightDestinationVM>> GetAllDestinations();
+        Task<ApiResponse> AddDestination(FlightDestinationVM request);
+        Task<ApiResponse> RemoveDestination(int Id);
+        Task<ApiResponse> GetAllDestinations();
     }
 }

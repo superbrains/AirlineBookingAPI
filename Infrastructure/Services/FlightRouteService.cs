@@ -1,28 +1,69 @@
-﻿using Common.DTOs.Request;
+﻿using AutoMapper;
+using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
+using Common.Enums;
+using Common.Extensions;
+using Data.Models;
+using Data.Transactions;
 using Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.ModelBinding;
 
 namespace Infrastructure.Services
 {
     public class FlightRouteService : IFlightDestinationService
     {
-        public Task<FlightDestinationVM> AddDestination(FlightDestinationVM request)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public FlightRouteService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public Task<List<FlightDestinationVM>> GetAllDestinations()
+        public async Task<ApiResponse> AddDestination(FlightDestinationVM request)
         {
-            throw new NotImplementedException();
+                   
+
+            var route = _mapper.Map<FlightDestinations>(request);
+
+            var result = await _unitOfWork.FlightDestination.Add(route);
+            await _unitOfWork.CompleteAsync();
+
+            if (result)
+            {
+                return new ApiResponse(request);
+            }
+            else
+            {
+                throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.GeneralError));
+            }
         }
 
-        public Task<FlightDestinationVM> RemoveDestination(int Id)
+        public async Task<ApiResponse> GetAllDestinations()
         {
-            throw new NotImplementedException();
+            var routes = await _unitOfWork.FlightDestination.All();
+
+            return new ApiResponse(routes);
+        }
+
+        public async Task<ApiResponse> RemoveDestination(int Id)
+        {
+            var routes = await _unitOfWork.FlightDestination.GetById(Id);
+
+            if (routes != null)
+            {
+                await _unitOfWork.FlightDestination.Delete(Id);
+
+                return new ApiResponse("Destination Deleted");
+            }
+
+            throw new ApiException(ExtentionClass.GetStatusMessage(StatusCode.NotFound));
+
         }
     }
 }
