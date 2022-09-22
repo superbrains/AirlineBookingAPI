@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IUserService
     {
-        Task<UserVM> CreateUser(UserVM request);
-        Task<UserVM> ValidateUser(string email, string pass);   
-        Task<UserVM> GetUserProfile(string email);
+        Task<ApiResponse> CreateUser(UserVM request);
+        Task<ApiResponse> ValidateUser(string email, string pass);   
+        Task<ApiResponse> GetUserProfile(string email);
     }
 }

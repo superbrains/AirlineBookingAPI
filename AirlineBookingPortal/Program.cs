@@ -1,3 +1,5 @@
+using AutoWrapper;
+using Common;
 using Common.Filters;
 using Data.DBContext;
 using Data.Transactions;
@@ -36,7 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseApiResponseAndExceptionWrapper<Result>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

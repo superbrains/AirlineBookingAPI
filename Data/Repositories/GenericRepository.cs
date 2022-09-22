@@ -29,6 +29,11 @@ namespace Data.Repositories
             return await dbSet.FindAsync(id);
         }
 
+        public virtual async Task<T> GetByEmail(string email)
+        {
+            return await dbSet.FindAsync(email);
+        }
+
         public virtual async Task<bool> Add(T entity)
         {
             await dbSet.AddAsync(entity);
@@ -45,9 +50,14 @@ namespace Data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate)
         {
             return await dbSet.Where(predicate).ToListAsync();
+        }
+
+        public async Task<T> FindOne(Expression<Func<T, bool>> predicate)
+        {
+            return await dbSet.FirstOrDefaultAsync(predicate);
         }
 
         public virtual Task<bool> Update(T entity)

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Common.DTOs.Request;
+using Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,8 @@ namespace Infrastructure.Mapping
     {
         public Mappings()
         {
-            //CreateMap<TenantVM, Tenants>().ReverseMap();
-            //CreateMap<OperatorVM, Operators>().ReverseMap();
-            //CreateMap<FacilityVM, Facilities>().ReverseMap();
-            //CreateMap<WellReading, WellReadingVM>().ReverseMap();
+            CreateMap<Users, UserVM>().ReverseMap();
+           
         }
     }
 }

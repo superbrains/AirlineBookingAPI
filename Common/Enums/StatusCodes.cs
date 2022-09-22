@@ -21,7 +21,9 @@ namespace Common.Enums
         [ServiceStatus(10, "Pending")] Pending = 10,
 
         [ServiceStatus(500, "Internal server error.")]
-        InternalServerError
+        InternalServerError,
+        [ServiceStatus(500, "An error occured. Please try again later")]
+        GeneralError
     }
 
 }
