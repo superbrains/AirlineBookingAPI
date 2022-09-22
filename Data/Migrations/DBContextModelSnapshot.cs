@@ -200,6 +200,31 @@ namespace Data.Migrations
                     b.ToTable("FlightSchedules");
                 });
 
+            modelBuilder.Entity("Data.Models.FlightSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("FlightSeats");
+                });
+
             modelBuilder.Entity("Data.Models.Passenger", b =>
                 {
                     b.Property<int>("Id")
@@ -265,6 +290,32 @@ namespace Data.Migrations
                     b.ToTable("Seats");
                 });
 
+            modelBuilder.Entity("Data.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookingID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BookingReference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FlightScheduleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("Data.Models.Users", b =>
                 {
                     b.Property<int>("Id")
@@ -314,6 +365,17 @@ namespace Data.Migrations
                 });
 
             modelBuilder.Entity("Data.Models.FlightSchedule", b =>
+                {
+                    b.HasOne("Data.Models.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+                });
+
+            modelBuilder.Entity("Data.Models.FlightSeat", b =>
                 {
                     b.HasOne("Data.Models.Flight", "Flight")
                         .WithMany()

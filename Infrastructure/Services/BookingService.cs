@@ -29,7 +29,7 @@ namespace Infrastructure.Services
             var ticket = await _unitOfWork.Ticket.FindOne(x => x.BookingReference == bookingref);
             if(ticket != null)
             {
-                var booking = await _unitOfWork.Booking.FindOne(x => x.Id == ticket.BookingInfo.Id);
+                var booking = await _unitOfWork.Booking.FindOne(x => x.Id == ticket.BookingID);
               
                 await _unitOfWork.Ticket.Delete(ticket.Id);
                 await _unitOfWork.Booking.Delete(booking.Id);
@@ -79,8 +79,8 @@ namespace Infrastructure.Services
             var bookingRef = Guid.NewGuid().ToString().Substring(1, 5).ToUpper();
             Ticket ticket = new Ticket();
             ticket.BookingReference = bookingRef;
-            ticket.BookingInfo = booking;
-            ticket.FlightInfo = schedule;
+            ticket.BookingID = booking.Id;
+            ticket.FlightScheduleID = schedule.Id;
             await _unitOfWork.Ticket.Add(ticket);
 
             await _unitOfWork.CompleteAsync();

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(Data.DBContext.DBContext))]
-    [Migration("20220922153817_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20220922215544_DBMigration")]
+    partial class DBMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,9 @@ namespace Data.Migrations
                     b.Property<decimal>("AmountPerChild")
                         .HasColumnType("decimal(18,4)");
 
+                    b.Property<DateTime>("ArrivalDateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ArrivingAt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -182,7 +185,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DepatureDate")
+                    b.Property<DateTime>("DepatureDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ETA")
@@ -197,6 +200,31 @@ namespace Data.Migrations
                     b.HasIndex("FlightId");
 
                     b.ToTable("FlightSchedules");
+                });
+
+            modelBuilder.Entity("Data.Models.FlightSeat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("FlightSeats");
                 });
 
             modelBuilder.Entity("Data.Models.Passenger", b =>
@@ -264,6 +292,32 @@ namespace Data.Migrations
                     b.ToTable("Seats");
                 });
 
+            modelBuilder.Entity("Data.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookingID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BookingReference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FlightScheduleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tickets");
+                });
+
             modelBuilder.Entity("Data.Models.Users", b =>
                 {
                     b.Property<int>("Id")
@@ -313,6 +367,17 @@ namespace Data.Migrations
                 });
 
             modelBuilder.Entity("Data.Models.FlightSchedule", b =>
+                {
+                    b.HasOne("Data.Models.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+                });
+
+            modelBuilder.Entity("Data.Models.FlightSeat", b =>
                 {
                     b.HasOne("Data.Models.Flight", "Flight")
                         .WithMany()

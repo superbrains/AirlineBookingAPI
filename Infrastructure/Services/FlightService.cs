@@ -41,6 +41,7 @@ namespace Infrastructure.Services
             }
         }
 
+
         public async Task<ApiResponse> AddFlightSeats(FlightSeatVM request)
         {
             var flightSeat = _mapper.Map<FlightSeat>(request);

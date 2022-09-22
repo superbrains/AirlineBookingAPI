@@ -9,7 +9,7 @@ namespace Data.Models
     public class Ticket : Base
     {
         public string BookingReference { get; set; }
-        public FlightSchedule FlightInfo { get; set; }
-        public Booking BookingInfo { get; set; }
+        public int FlightScheduleID { get; set; }
+        public int BookingID { get; set; }
     }
 }

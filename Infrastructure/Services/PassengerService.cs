@@ -26,7 +26,7 @@ namespace Infrastructure.Services
             var ticket = await _unitOfWork.Ticket.FindOne(x => x.BookingReference == bookingReference);
             if (ticket != null)
             {
-                var booking= await _unitOfWork.Booking.GetById(ticket.BookingInfo.Id);
+                var booking= await _unitOfWork.Booking.GetById(ticket.BookingID);
                 booking.IsCheckedIn = true;
 
                 await _unitOfWork.Booking.Update(booking);

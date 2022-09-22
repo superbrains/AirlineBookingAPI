@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class DBMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,22 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingReference = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FlightScheduleID = table.Column<int>(type: "int", nullable: false),
+                    BookingID = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -85,7 +101,8 @@ namespace Data.Migrations
                     FlightId = table.Column<int>(type: "int", nullable: false),
                     DepartingFrom = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArrivingAt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepatureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DepatureDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AmountPerAdult = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     AmountPerChild = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     ETA = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -96,6 +113,27 @@ namespace Data.Migrations
                     table.PrimaryKey("PK_FlightSchedules", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FlightSchedules_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlightSeats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightId = table.Column<int>(type: "int", nullable: false),
+                    SeatNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightSeats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FlightSeats_Flights_FlightId",
                         column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id",
@@ -210,6 +248,11 @@ namespace Data.Migrations
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FlightSeats_FlightId",
+                table: "FlightSeats",
+                column: "FlightId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Passengers_BookingInfoId",
                 table: "Passengers",
                 column: "BookingInfoId");
@@ -236,10 +279,16 @@ namespace Data.Migrations
                 name: "FlightDestinations");
 
             migrationBuilder.DropTable(
+                name: "FlightSeats");
+
+            migrationBuilder.DropTable(
                 name: "Passengers");
 
             migrationBuilder.DropTable(
                 name: "Seats");
+
+            migrationBuilder.DropTable(
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Users");
