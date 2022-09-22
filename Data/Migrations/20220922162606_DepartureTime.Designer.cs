@@ -4,6 +4,7 @@ using Data.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(Data.DBContext.DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20220922162606_DepartureTime")]
+    partial class DepartureTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,9 +171,6 @@ namespace Data.Migrations
                     b.Property<decimal>("AmountPerChild")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<DateTime>("ArrivalDateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ArrivingAt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,8 +182,11 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DepatureDateTime")
+                    b.Property<DateTime>("DepatureDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("DepatureTime")
+                        .HasColumnType("time");
 
                     b.Property<string>("ETA")
                         .IsRequired()

@@ -1,4 +1,5 @@
-﻿using Common.DTOs.Request;
+﻿using AutoWrapper.Wrappers;
+using Common.DTOs.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ namespace Infrastructure.Interfaces
 {
     public interface IFlightScheduleService
     {
-        Task<FlightScheduleVM> AddSchedule(FlightScheduleVM request);
-        Task<FlightScheduleVM> UpdateSchedule(FlightScheduleVM request);
-        Task<FlightScheduleVM> DeleteSchedule(int Id);
-        Task<List<FlightScheduleVM>> GetSchedules();
-        Task<List<FlightScheduleVM>> GetSchedules(string departure, string arrival, DateTime depatureDate);
-        
+        Task<ApiResponse> AddSchedule(FlightScheduleVM request);
+        Task<ApiResponse> UpdateSchedule(FlightScheduleVM request);
+        Task<ApiResponse> DeleteSchedule(int Id);
+        Task<ApiResponse> GetSchedules();
+        Task<ApiResponse> GetSchedules(string departure, string arrival, DateTime depatureDate);        
     }
 }

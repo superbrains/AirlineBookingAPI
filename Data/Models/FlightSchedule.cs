@@ -11,7 +11,8 @@ namespace Data.Models
         public Flight Flight { get; set; }
         public string DepartingFrom { get; set; }
         public string ArrivingAt { get; set; }
-        public DateTime DepatureDate { get; set; }
+        public DateTime DepatureDateTime { get; set; }
+        public DateTime ArrivalDateTime { get; set; }
         public decimal AmountPerAdult { get; set; }
         public decimal AmountPerChild { get; set; }
         public string ETA { get; set; }
