@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirlineBookingAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class FlightController : ControllerBase
     {
@@ -22,9 +22,19 @@ namespace AirlineBookingAPI.Controllers
             _flightScheduleService = flightScheduleService;
         }
 
-       
+        [HttpPost(Name = "AddFlight")]
+
+        public async Task<ApiResponse> AddFlight(FlightVM request)
+        {
+            //Validate Model
+            var result = await _flightService.AddFlight(request);
+
+            return result;
+        }
+
+
         [HttpPost(Name = "AddFlightSeats")]
-        [Route("AddFlightSeats")]
+       
         public async Task<ApiResponse> AddFlightSeats(FlightSeatVM request)
         {
             //Validate Model
@@ -34,7 +44,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
         [HttpPost(Name = "UpdateFlight")]
-        [Route("UpdateFlight")]
+     
         public async Task<ApiResponse> UpdateFlight(FlightVM request)
         {
             //Validate Model
@@ -45,7 +55,7 @@ namespace AirlineBookingAPI.Controllers
 
       
         [HttpPost(Name = "RemoveFlight")]
-        [Route("RemoveFlight")]
+      
         public async Task<ApiResponse> RemoveFlight(int flightId)
         {
             //Validate Model
@@ -55,7 +65,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
         [HttpGet(Name = "GetFlight")]
-        [Route("GetFlight")]
+       
         public async Task<ApiResponse> GetFlight(int flightId)
         {
             //Validate Model
@@ -67,7 +77,7 @@ namespace AirlineBookingAPI.Controllers
        
 
         [HttpPost(Name = "SetFlightAvailability")]
-        [Route("SetFlightAvailability")]
+       
         public async Task<ApiResponse> SetFlightAvailability(int flightId, bool availability)
         {
             //Validate Model
@@ -77,7 +87,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
         [HttpPost(Name = "AddFlightDestination")]
-        [Route("AddFlightDestination")]
+        
         public async Task<ApiResponse> AddFlightDestination(FlightDestinationVM request)
         {
             //Validate Model
@@ -88,7 +98,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
         [HttpPost(Name = "RemoveDestination")]
-        [Route("RemoveDestination")]
+        
         public async Task<ApiResponse> RemoveDestination(int destinationId)
         {
             //Validate Model
@@ -99,7 +109,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
         [HttpGet(Name = "GetAllDestinations")]
-        [Route("GetAllDestinations")]
+        
         public async Task<ApiResponse> GetAllDestinations()
         {
             //Validate Model
