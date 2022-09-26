@@ -7,11 +7,34 @@ using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var cn = builder.Configuration.GetConnectionString("LocalConnection");
 // Add services to the container.
 builder.Services.AddDbContext<DBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection")));
+
+var apiPolicy = "airlineAPIPolicy";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(apiPolicy, builder => {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();       
+    });
+});
+
+// Adds Microsoft Identity platform (Azure AD B2C) support to protect this Api
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddMicrosoftIdentityWebApi(options =>
+        {
+            builder.Configuration.Bind("AzureAdB2C", options);
+
+            options.TokenValidationParameters.NameClaimType = "name";
+        },
+options => { builder.Configuration.Bind("AzureAdB2C", options); });
+// End of the Microsoft Identity platform block    
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ResponseFormatterFilter));
@@ -52,8 +75,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseApiResponseAndExceptionWrapper<Result>();
+//app.UseApiResponseAndExceptionWrapper<Result>();
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

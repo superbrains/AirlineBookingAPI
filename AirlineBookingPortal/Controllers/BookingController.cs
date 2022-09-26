@@ -3,11 +3,15 @@ using Common.DTOs.Request;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
+using System.Web.Http;
 
 namespace AirlineBookingAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Authorize]
+    [RequiredScope("tasks.read")]
     [ApiController]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]/[action]")]
     public class BookingController : ControllerBase
     {
         private readonly ILogger<FlightController> _logger;
@@ -22,7 +26,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
 
-        [HttpGet(Name = "GetAvailableFlightSeats")]
+        [Microsoft.AspNetCore.Mvc.HttpGet(Name = "GetAvailableFlightSeats")]
         public async Task<ApiResponse> GetAvailableFlightSeats(int flightId)
         {
             //Validate Model
@@ -31,7 +35,7 @@ namespace AirlineBookingAPI.Controllers
             return result;
         }
 
-        [HttpPost(Name = "CreateBooking")]
+        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "CreateBooking")]
         public async Task<ApiResponse> CreateBooking(BookingVM request)
         {
             //Validate Model
@@ -41,7 +45,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
 
-        [HttpPost(Name = "CheckIn")]
+        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "CheckIn")]
         public async Task<ApiResponse> CheckIn(string bookingReference)
         {
             //Validate Model
@@ -51,7 +55,7 @@ namespace AirlineBookingAPI.Controllers
         }
 
 
-        [HttpPost(Name = "CheckOut")]
+        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "CheckOut")]
         public async Task<ApiResponse> CheckOut(string bookingReference)
         {
             //Validate Model
@@ -60,7 +64,7 @@ namespace AirlineBookingAPI.Controllers
             return result;
         }
 
-        [HttpPost(Name = "ViewTravelHistory")]
+        [Microsoft.AspNetCore.Mvc.HttpPost(Name = "ViewTravelHistory")]
         public async Task<ApiResponse> ViewTravelHistory(int customerId)
         {
             //Validate Model
