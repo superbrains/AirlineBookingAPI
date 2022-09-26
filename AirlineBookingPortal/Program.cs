@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "this is V1"
+        Title = "Airline Booking Portal API Documentation"
     });
     c.SwaggerDoc("v2", new OpenApiInfo
     {

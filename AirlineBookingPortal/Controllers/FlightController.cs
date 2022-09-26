@@ -119,6 +119,66 @@ namespace AirlineBookingAPI.Controllers
             return result;
         }
 
+        [HttpPost(Name = "AddSchedule")]
+
+        public async Task<ApiResponse> AddSchedule(FlightScheduleVM request)
+        {
+            //Validate Model
+
+            var result = await _flightScheduleService.AddSchedule(request);
+
+            return result;
+        }
+
+        
+        [HttpPost(Name = "DeleteSchedule")]
+
+        public async Task<ApiResponse> DeleteSchedule(int Id)
+        {
+            //Validate Model
+
+            var result = await _flightScheduleService.DeleteSchedule(Id);
+
+            return result;
+        }
+
+        
+        [HttpGet(Name = "GetSchedules")]
+
+        public async Task<ApiResponse> GetSchedules()
+        {
+            //Validate Model
+
+            var result = await _flightScheduleService.GetSchedules();
+
+            return result;
+        }
+
+        [HttpGet(Name = "GetScheduleList")]
+
+        public async Task<ApiResponse> GetScheduleList(string departure, string arrival, DateTime depatureDate)
+        {
+            //Validate Model
+
+            var result = await _flightScheduleService.GetSchedules(departure, arrival, depatureDate);
+
+            return result;
+        }
+
+
+        [HttpPost(Name = "UpdateSchedule")]
+
+        public async Task<ApiResponse> UpdateSchedule(FlightScheduleVM request)
+        {
+            //Validate Model
+
+            var result = await _flightScheduleService.UpdateSchedule(request);
+
+            return result;
+        }
+
+
+
 
     }
 }
